@@ -1,0 +1,142 @@
+<%- include('./partials/header.ejs'); %>
+
+<link rel="stylesheet" href="/css/inbox.css">
+
+</head>
+<body>
+
+<nav>
+    <div class="logo">💬 ChatFlow</div>
+
+    <div class="nav-links">
+        <a href="/inbox">Inbox</a>
+        <a href="/users">Users</a>
+        <a href="/login">Logout</a>
+    </div>
+</nav>
+
+<div class="main">
+
+    <!-- LEFT SIDE -->
+
+    <div class="sidebar">
+
+        <div class="search-box">
+            <input type="text" placeholder="Search conversation...">
+        </div>
+
+        <div class="chat-list">
+
+            <div class="chat-user">
+                <div class="avatar">J</div>
+
+                <div class="user-info">
+                    <div class="top-row">
+                        <span class="name">John Doe</span>
+                        <span class="date">Apr 16</span>
+                    </div>
+
+                    <div class="preview">
+                        This is a message...
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-user">
+                <div class="avatar">S</div>
+
+                <div class="user-info">
+                    <div class="top-row">
+                        <span class="name">Sarah Smith</span>
+                        <span class="date">Apr 15</span>
+                    </div>
+
+                    <div class="preview">
+                        This is a message...
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-user">
+                <div class="avatar">A</div>
+
+                <div class="user-info">
+                    <div class="top-row">
+                        <span class="name">Alex Brown</span>
+                        <span class="date">Apr 14</span>
+                    </div>
+
+                    <div class="preview">
+                        This is a message...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="chat-area">
+
+        <div class="chat-header">
+            <div class="chat-user-name">
+                John Doe
+            </div>
+
+            <button class="delete-btn">
+                🗑️
+            </button>
+        </div>
+
+        <div class="messages">
+
+            <div class="message-date">
+                Apr 16, 2026
+            </div>
+
+            <div class="message received">
+                Hi there! How are you?
+                <div class="message-time">10:15 AM</div>
+            </div>
+
+            <div class="message sent">
+                I'm doing great. Thanks!
+                <div class="message-time">10:17 AM</div>
+            </div>
+
+            <div class="message received">
+                This is a sample conversation UI.
+                <div class="message-time">10:18 AM</div>
+            </div>
+
+        </div>
+
+        <div class="chat-input">
+
+            <form class="input-wrapper">
+
+                <button type="button" class="icon-btn">
+                    📎
+                </button>
+
+                <input
+                    type="text"
+                    placeholder="Type a message..."
+                >
+
+                <button type="submit" class="send-btn">
+                    ➤
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

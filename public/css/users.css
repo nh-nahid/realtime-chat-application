@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #081c15;
+  color: white;
+}
+
+/* NAVBAR */
+
+nav {
+  height: 70px;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0b241d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #cbd5e1;
+}
+
+.nav-links a:hover {
+  color: #34d399;
+}
+
+/* PAGE */
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 25px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.add-btn {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: #10b981;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* TABLE */
+
+.table-wrapper {
+  background: #0b241d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #103127;
+}
+
+th {
+  text-align: left;
+  padding: 18px 24px;
+  color: #34d399;
+  font-weight: 600;
+}
+
+td {
+  padding: 18px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+tr:hover {
+  background: #123229;
+}
+
+/* USER CELL */
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #34d399;
+  color: #081c15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.email {
+  color: #94a3b8;
+}
+
+.message-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #16372f;
+  color: #34d399;
+  cursor: pointer;
+}
+
+.delete-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: #2b1515;
+  color: #ff6b6b;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.delete-btn:hover {
+  background: #441c1c;
+}

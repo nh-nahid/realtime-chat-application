@@ -1,0 +1,133 @@
+<%- include('./partials/header.ejs'); %>
+
+<link rel="stylesheet" href="/css/users.css">
+
+</head>
+<body>
+
+<nav>
+    <div class="logo">💬 ChatFlow</div>
+
+    <div class="nav-links">
+        <a href="/inbox">Inbox</a>
+        <a href="/users">Users</a>
+        <a href="/login">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1>Manage Users</h1>
+
+        <button class="add-btn">
+            +
+        </button>
+    </div>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        <div class="user-cell">
+                            <div class="avatar">J</div>
+                            <span>John Doe</span>
+                        </div>
+                    </td>
+
+                    <td class="email">
+                        john@example.com
+                    </td>
+
+                    <td>
+                        <button class="message-btn">
+                            Open Chat
+                        </button>
+                    </td>
+
+                    <td>
+                        <button class="delete-btn">
+                            🗑
+                        </button>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <div class="user-cell">
+                            <div class="avatar">S</div>
+                            <span>Sarah Smith</span>
+                        </div>
+                    </td>
+
+                    <td class="email">
+                        sarah@example.com
+                    </td>
+
+                    <td>
+                        <button class="message-btn">
+                            Open Chat
+                        </button>
+                    </td>
+
+                    <td>
+                        <button class="delete-btn">
+                            🗑
+                        </button>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <div class="user-cell">
+                            <div class="avatar">A</div>
+                            <span>Alex Brown</span>
+                        </div>
+                    </td>
+
+                    <td class="email">
+                        alex@example.com
+                    </td>
+
+                    <td>
+                        <button class="message-btn">
+                            Open Chat
+                        </button>
+                    </td>
+
+                    <td>
+                        <button class="delete-btn">
+                            🗑
+                        </button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
