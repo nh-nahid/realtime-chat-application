@@ -15,7 +15,8 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "set NODE_ENV=development&& nodemon app.js",
+    "prod": "set NODE_ENV=production&& node app.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
