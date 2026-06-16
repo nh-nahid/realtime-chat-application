@@ -43,89 +43,46 @@
             </thead>
 
             <tbody>
+    <% users.forEach(function(user) { %>
+        <tr id="<%= user._id %>">
 
-                <tr>
+            <td class="name">
+                <div class="user-cell">
 
-                    <td>
-                        <div class="user-cell">
-                            <div class="avatar">J</div>
-                            <span>John Doe</span>
+                    <% if (user.avatar) { %>
+                        <img 
+                            src="/uploads/avatars/<%= user.avatar %>" 
+                            class="avatar"
+                        />
+                    <% } else { %>
+                        <div class="avatar">
+                            <%= user.name.charAt(0).toUpperCase() %>
                         </div>
-                    </td>
+                    <% } %>
 
-                    <td class="email">
-                        john@example.com
-                    </td>
+                    <span><%= user.name %></span>
+                </div>
+            </td>
 
-                    <td>
-                        <button class="message-btn">
-                            Open Chat
-                        </button>
-                    </td>
+            <td class="email">
+                <%= user.email %>
+            </td>
 
-                    <td>
-                        <button class="delete-btn">
-                            🗑
-                        </button>
-                    </td>
+            <td>
+                <button class="message-btn">
+                    Open Chat
+                </button>
+            </td>
 
-                </tr>
+            <td>
+                <button class="delete-btn" onclick="deleteUser('<%= user._id %>')">
+                    🗑
+                </button>
+            </td>
 
-                <tr>
-
-                    <td>
-                        <div class="user-cell">
-                            <div class="avatar">S</div>
-                            <span>Sarah Smith</span>
-                        </div>
-                    </td>
-
-                    <td class="email">
-                        sarah@example.com
-                    </td>
-
-                    <td>
-                        <button class="message-btn">
-                            Open Chat
-                        </button>
-                    </td>
-
-                    <td>
-                        <button class="delete-btn">
-                            🗑
-                        </button>
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td>
-                        <div class="user-cell">
-                            <div class="avatar">A</div>
-                            <span>Alex Brown</span>
-                        </div>
-                    </td>
-
-                    <td class="email">
-                        alex@example.com
-                    </td>
-
-                    <td>
-                        <button class="message-btn">
-                            Open Chat
-                        </button>
-                    </td>
-
-                    <td>
-                        <button class="delete-btn">
-                            🗑
-                        </button>
-                    </td>
-
-                </tr>
-
-            </tbody>
+        </tr>
+    <% }) %>
+</tbody>
 
         </table>
 
@@ -135,5 +92,57 @@
 <!-- Create User Modal -->
 <%- include('./partials/add-user-model.ejs'); %>
 <script src="/js/toastify.js"></script>
+<script>
+    
+function showDeleteToast() {
+    Toastify({
+        text: "User was deleted successfully!",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+            background: "linear-gradient(135deg,#ef4444,#dc2626)"
+        }
+    }).showToast();
+}
+
+function showDeleteErrorToast() {
+    Toastify({
+        text: "Could not delete the user!",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+            background: "linear-gradient(135deg,#ef4444,#dc2626)"
+        }
+    }).showToast();
+}
+
+    // delete user functionality
+async function deleteUser(userId) {
+    try {
+        let response = await fetch(`/users/${userId}`, {
+            method: "DELETE",
+        });
+
+        let result = await response.json();
+
+        if (result.errors) {
+            showDeleteErrorToast();
+        } else {
+            showDeleteToast();
+
+            const row = document.getElementById(userId);
+            if (row) row.remove();
+        }
+
+    } catch (error) {
+        console.error(error);
+        showDeleteErrorToast();
+    }
+}
+</script>
 </body>
 </html>

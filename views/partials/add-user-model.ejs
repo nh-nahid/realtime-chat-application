@@ -95,8 +95,6 @@
 const modal = document.querySelector("#add-user-modal");
 const form = document.querySelector("#add-user-form");
 
-console.log("FORM:", form);
-
 function openModal() {
     modal.classList.add("show");
 }
@@ -218,7 +216,7 @@ form.onsubmit = async (event) => {
 
         setTimeout(() => {
             location.reload();
-        }, 3000);
+        }, 1000);
 
     } catch(error) {
 
