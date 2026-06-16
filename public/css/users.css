@@ -10,7 +10,9 @@ body {
   color: white;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+   ========================= */
 
 nav {
   height: 70px;
@@ -42,7 +44,9 @@ nav {
   color: #34d399;
 }
 
-/* PAGE */
+/* =========================
+   PAGE
+   ========================= */
 
 .container {
   max-width: 1200px;
@@ -78,7 +82,9 @@ nav {
   transform: translateY(-2px);
 }
 
-/* TABLE */
+/* =========================
+   TABLE
+   ========================= */
 
 .table-wrapper {
   background: #0b241d;
@@ -112,7 +118,9 @@ tr:hover {
   background: #123229;
 }
 
-/* USER CELL */
+/* =========================
+   USER CELL
+   ========================= */
 
 .user-cell {
   display: flex;
@@ -158,4 +166,144 @@ tr:hover {
 
 .delete-btn:hover {
   background: #441c1c;
+}
+
+/* =========================
+   MODAL
+   ========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 550px;
+  background: #0b241d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 30px;
+  animation: modalAnimation 0.25s ease;
+}
+
+@keyframes modalAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modal-header h2 {
+  color: #34d399;
+}
+
+.close-modal {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: #16372f;
+  color: white;
+  cursor: pointer;
+}
+
+/* =========================
+   FORM
+   ========================= */
+
+.form-group {
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 14px;   
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0b241d;
+    color: #ffffff;       
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.submit-btn {
+  width: 100%;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* =========================
+   FORM VALIDATION (FIXED)
+   ========================= */
+
+/* INPUT ERROR */
+input.error {
+  border: 2px solid #ef4444 !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  transition: all 0.2s ease;
+}
+
+/* FILE INPUT ERROR */
+input[type="file"].error {
+  border: 2px solid #ef4444 !important;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* ERROR TEXT (BELOW INPUT) */
+p.error {
+  display: none;
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 6px;
+  min-height: 16px;
+  transition: all 0.2s ease;
+}
+
+/* SHOW ERROR */
+p.error.show {
+  display: block;
+}
+
+/* SUCCESS INPUT (OPTIONAL) */
+input.success {
+  border: 2px solid #10b981 !important;
 }

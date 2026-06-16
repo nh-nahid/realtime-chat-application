@@ -1,6 +1,7 @@
 <%- include('./partials/header.ejs'); %>
 
 <link rel="stylesheet" href="/css/users.css">
+<link rel="stylesheet" href="/css/toastify.css">
 
 </head>
 <body>
@@ -20,9 +21,12 @@
     <div class="page-header">
         <h1>Manage Users</h1>
 
-        <button class="add-btn">
-            +
-        </button>
+        <button
+    class="add-btn"
+    onclick="openModal()"
+>
+    +
+</button>
     </div>
 
     <div class="table-wrapper">
@@ -128,6 +132,8 @@
     </div>
 
 </div>
-
+<!-- Create User Modal -->
+<%- include('./partials/add-user-model.ejs'); %>
+<script src="/js/toastify.js"></script>
 </body>
 </html>
