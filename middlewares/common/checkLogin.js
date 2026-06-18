@@ -1,34 +1,45 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const checkLogin = (req, res, next) => {
-    let cookies = Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
+function checkLogin(req, res, next) {
 
-    if(cookies) {
-        try {
-            token = cookies[process.env.COOKIE_NAME];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = decoded;
+    const token =
+        req.signedCookies[process.env.COOKIE_NAME];
 
-            // pass user info to response locals
-            if(res.locals.html) {
-                res.locals.loggedInUser = decoded;
-            }
+    if (!token) {
+        return res.redirect("/");
+    }
 
-            next();
-        } catch (error) {
-            if(res.locals.html) {
-                res.redirect("/");
-            } else {
-                res.status(500).json({
-                    errors: {
-                        common: {
-                            msg: "Authentication failure!"
-                        }
-                    }
-                })
-            }
-        }
+    try {
+
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        req.user = decoded;
+        res.locals.loggedInUser = decoded;
+
+        next();
+
+    } catch (err) {
+
+        return res.redirect("/");
+
     }
 }
 
-module.exports = checkLogin;
+
+const redirectLoggedIn = function (req, res, next) {
+    let cookies = Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
+
+    if(!cookies) {
+        next();
+    } else{
+        res.redirect("/inbox")
+    }
+}
+
+module.exports = {
+    checkLogin,
+    redirectLoggedIn
+}
