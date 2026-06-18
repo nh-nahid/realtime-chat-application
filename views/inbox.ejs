@@ -5,15 +5,10 @@
 </head>
 <body>
 
-<nav>
-    <div class="logo">💬 ChatFlow</div>
-
-    <div class="nav-links">
-        <a href="/inbox">Inbox</a>
-        <a href="/users">Users</a>
-        <a href="/login">Logout</a>
-    </div>
-</nav>
+<%- include('./partials/nav.ejs', {
+    active: 'inbox',
+    loggedIn: true
+}) %>
 
 <div class="main">
 
@@ -140,3 +135,5 @@
 
 </body>
 </html>
+
+<%- include('./partials/footer.ejs') %>

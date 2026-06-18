@@ -1,0 +1,61 @@
+<nav>
+    <div class="logo">💬 ChatFlow</div>
+
+    <div class="nav-links">
+
+        <a href="/inbox"
+           class="<%= active === 'inbox' ? 'active' : '' %>">
+            Inbox
+        </a>
+
+        <a href="/users"
+           class="<%= active === 'users' ? 'active' : '' %>">
+            Users
+        </a>
+
+        <% if (loggedInUser && loggedInUser.username) { %>
+
+            <a href="#" onclick="logout(event)">Logout</a>
+
+        <% } else { %>
+
+            <a href="/"
+               class="<%= active === 'login' ? 'active' : '' %>">
+                Login
+            </a>
+
+        <% } %>
+
+    </div>
+</nav>
+
+<script>
+async function logout(event) {
+    event.preventDefault();
+
+    try {
+        Toastify({
+            text: "Logging out...",
+            duration: 2000,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "linear-gradient(135deg,#34d399,#059669)"
+            }
+        }).showToast();
+
+        const res = await fetch("/", {
+            method: "DELETE",
+        });
+
+        if (!res.ok) throw new Error("Logout failed");
+
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 800);
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+</script>

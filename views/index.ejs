@@ -1,22 +1,14 @@
 <%- include('./partials/header.ejs'); %>
 
-    <link rel="stylesheet" href="/css/index.css">
-    
+<link rel="stylesheet" href="/css/index.css">
+
 </head>
 <body>
 
-<nav>
-    <div class="logo">
-        <div class="logo-icon">💬</div>
-        <h2>ChatFlow</h2>
-    </div>
-
-    <div class="nav-links">
-        <a href="/inbox">Inbox</a>
-        <a href="/users">Users</a>
-        <a href="/login">Login</a>
-    </div>
-</nav>
+<%- include('./partials/nav.ejs', {
+    active: 'login',
+    loggedIn: false
+}) %>
 
 <div class="wrapper">
 
@@ -58,18 +50,26 @@
             <h2>Welcome Back 👋</h2>
             <p>Login to continue chatting with your friends.</p>
 
-            <form action="/login" method="POST">
+            <form action="/" method="POST">
 
+                <!-- USERNAME -->
                 <div class="form-group">
                     <label>Email Address</label>
                     <input
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="username"
                         placeholder="john@example.com"
-                        required
+                        value="<%= data?.username || '' %>"
                     >
+
+                    <% if (errors && errors.username) { %>
+                        <p class="error show">
+                            <%= errors.username.msg %>
+                        </p>
+                    <% } %>
                 </div>
 
+                <!-- PASSWORD -->
                 <div class="form-group">
                     <label>Password</label>
                     <input
@@ -78,7 +78,20 @@
                         placeholder="••••••••"
                         required
                     >
+
+                    <% if (errors && errors.password) { %>
+                        <p class="error show">
+                            <%= errors.password.msg %>
+                        </p>
+                    <% } %>
                 </div>
+
+                <!-- COMMON ERROR -->
+                <% if (errors && errors.common) { %>
+                    <p class="error show">
+                        <%= errors.common.msg %>
+                    </p>
+                <% } %>
 
                 <button class="login-btn" type="submit">
                     Login to Chat
@@ -98,3 +111,4 @@
 
 </body>
 </html>
+<%- include('./partials/footer.ejs') %>
