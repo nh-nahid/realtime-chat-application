@@ -13,98 +13,109 @@
 <div class="main">
 
     <!-- LEFT SIDE -->
-
     <div class="sidebar">
+
+        <div class="new-chat-btn" onclick="openNewChatModal()">
+            +
+        </div>
 
         <div class="search-box">
             <input type="text" placeholder="Search conversation...">
         </div>
 
+        <!-- CHAT LIST -->
         <div class="chat-list">
 
-            <div class="chat-user">
-                <div class="avatar">J</div>
+            <% if (typeof conversations !== "undefined" && conversations && conversations.length > 0) { %>
 
-                <div class="user-info">
-                    <div class="top-row">
-                        <span class="name">John Doe</span>
-                        <span class="date">Apr 16</span>
+                <% conversations.forEach(conv => { %>
+
+                    <div class="chat-user"
+                        onclick="window.location.href='/inbox/<%= conv._id %>'">
+
+                        <div class="avatar">
+                            <%= conv.user?.name?.charAt(0).toUpperCase() || "U" %>
+                        </div>
+
+                        <div class="user-info">
+                            <div class="top-row">
+                                <span class="name">
+                                    <%= conv.user?.name || "Unknown" %>
+                                </span>
+
+                                <span class="date">
+                                    <%= conv.updatedAt
+                                        ? new Date(conv.updatedAt).toDateString().slice(4, 10)
+                                        : "" %>
+                                </span>
+                            </div>
+
+                            <div class="preview">
+                                <%= conv.lastMessage || "No messages yet" %>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="preview">
-                        This is a message...
-                    </div>
-                </div>
-            </div>
+                <% }) %>
 
-            <div class="chat-user">
-                <div class="avatar">S</div>
+            <% } else { %>
 
-                <div class="user-info">
-                    <div class="top-row">
-                        <span class="name">Sarah Smith</span>
-                        <span class="date">Apr 15</span>
-                    </div>
+                <p style="padding:10px; opacity:0.6;">
+                    No conversations yet
+                </p>
 
-                    <div class="preview">
-                        This is a message...
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-user">
-                <div class="avatar">A</div>
-
-                <div class="user-info">
-                    <div class="top-row">
-                        <span class="name">Alex Brown</span>
-                        <span class="date">Apr 14</span>
-                    </div>
-
-                    <div class="preview">
-                        This is a message...
-                    </div>
-                </div>
-            </div>
+            <% } %>
 
         </div>
 
     </div>
 
     <!-- RIGHT SIDE -->
-
     <div class="chat-area">
 
         <div class="chat-header">
             <div class="chat-user-name">
-                John Doe
+                <%= (typeof selectedUser !== "undefined" && selectedUser && selectedUser.name)
+                    ? selectedUser.name
+                    : "Select chat" %>
             </div>
 
-            <button class="delete-btn">
-                🗑️
-            </button>
+            <button class="delete-btn">🗑️</button>
         </div>
 
         <div class="messages">
 
-            <div class="message-date">
-                Apr 16, 2026
-            </div>
+            <% if (typeof messages !== "undefined" && messages && messages.length > 0) { %>
 
-            <div class="message received">
-                Hi there! How are you?
-                <div class="message-time">10:15 AM</div>
-            </div>
+                <div class="message-date">
+                    <%= new Date(messages[0].createdAt).toDateString() %>
+                </div>
 
-            <div class="message sent">
-                I'm doing great. Thanks!
-                <div class="message-time">10:17 AM</div>
-            </div>
+                <% messages.forEach(msg => { %>
 
-            <div class="message received">
-                This is a sample conversation UI.
-                <div class="message-time">10:18 AM</div>
-            </div>
+                    <div class="message <%= msg.senderId == user?._id ? 'sent' : 'received' %>">
+
+                        <%= msg.text %>
+
+                        <div class="message-time">
+                            <%= new Date(msg.createdAt).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }) %>
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            <% } else { %>
+
+                <div class="empty-chat">
+                    Start your conversation 👋
+                </div>
+
+            <% } %>
 
         </div>
 
@@ -112,18 +123,11 @@
 
             <form class="input-wrapper">
 
-                <button type="button" class="icon-btn">
-                    📎
-                </button>
+                <button type="button" class="icon-btn">📎</button>
 
-                <input
-                    type="text"
-                    placeholder="Type a message..."
-                >
+                <input type="text" placeholder="Type a message...">
 
-                <button type="submit" class="send-btn">
-                    ➤
-                </button>
+                <button type="submit" class="send-btn">➤</button>
 
             </form>
 
@@ -133,7 +137,169 @@
 
 </div>
 
-</body>
-</html>
+<!-- =========================
+     NEW CHAT MODAL
+========================= -->
+
+<div id="new-chat-modal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Start New Chat</h2>
+
+            <button type="button" class="close-modal" onclick="closeNewChatModal()">
+                ✕
+            </button>
+        </div>
+
+        <form id="new-chat-form">
+
+            <div class="form-group">
+
+                <label>Username or Mobile</label>
+
+                <input
+                    type="text"
+                    id="search-user"
+                    placeholder="Enter username or mobile"
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button type="button" class="submit-btn">
+                Search User
+            </button>
+
+            <p class="error" style="display:none;color:red;"></p>
+
+            <div id="search-result"></div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     SCRIPT (SAFE + DEBOUNCE)
+========================= -->
+
+<script>
+
+let searchTimeout = null;
+
+/* MODAL */
+function openNewChatModal() {
+    document.getElementById("new-chat-modal").classList.add("show");
+}
+
+function closeNewChatModal() {
+    document.getElementById("new-chat-modal").classList.remove("show");
+}
+
+window.addEventListener("click", function (event) {
+    const modal = document.getElementById("new-chat-modal");
+    if (event.target === modal) closeNewChatModal();
+});
+
+/* =========================
+   SEARCH USERS (SAFE VERSION)
+========================= */
+
+async function searchUsers(keyword) {
+
+    const resultBox = document.getElementById("search-result");
+    const errorBox = document.querySelector("p.error");
+
+    try {
+
+        const response = await fetch("/inbox/search", {
+            method: "POST",
+            body: JSON.stringify({ user: keyword }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const result = await response.json();
+
+        resultBox.innerHTML = "";
+        errorBox.style.display = "none";
+
+        if (result.errors) {
+            errorBox.textContent = result.errors.common?.msg || "Error";
+            errorBox.style.display = "block";
+            return;
+        }
+
+        if (!result || result.length === 0) {
+            resultBox.innerHTML = "<p>No users found</p>";
+            return;
+        }
+
+        let html = "<ul>";
+
+        result.forEach(user => {
+
+            const avatar = user.avatar
+                ? `/uploads/avatars/${user.avatar}`
+                : `/images/nophoto.png`;
+
+            html += `
+                <li onclick="startConversation('${user._id}')">
+                    <div class="user">
+                        <div class="avatar">
+                            <img src="${avatar}" />
+                        </div>
+
+                        <div class="username">
+                            ${user.name}
+                        </div>
+                    </div>
+                </li>
+            `;
+        });
+
+        html += "</ul>";
+
+        resultBox.innerHTML = html;
+
+    } catch (error) {
+        console.error(error);
+        resultBox.innerHTML = "<p>Something went wrong</p>";
+    }
+}
+
+/* =========================
+   DEBOUNCE (500ms)
+========================= */
+
+document.getElementById("search-user").addEventListener("input", function () {
+
+    const keyword = this.value.trim();
+
+    const resultBox = document.getElementById("search-result");
+
+    clearTimeout(searchTimeout);
+
+    resultBox.innerHTML = "";
+
+    if (!keyword) return;
+
+    resultBox.innerHTML = "<p>Searching...</p>";
+
+    searchTimeout = setTimeout(() => {
+        searchUsers(keyword);
+    }, 500);
+});
+
+/* START CHAT */
+function startConversation(userId) {
+    window.location.href = `/inbox/${userId}`;
+}
+
+</script>
 
 <%- include('./partials/footer.ejs') %>

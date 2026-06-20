@@ -1,0 +1,42 @@
+<div id="new-chat-modal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Start New Chat</h2>
+
+            <button
+                type="button"
+                class="close-modal"
+                onclick="closeNewChatModal()"
+            >
+                ✕
+            </button>
+        </div>
+
+        <form id="new-chat-form">
+
+            <div class="form-group">
+                <label>Username or Mobile</label>
+
+                <input
+                    type="text"
+                    id="search-user"
+                    placeholder="Enter username or mobile"
+                    autocomplete="off"
+                >
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Search User
+            </button>
+
+            <p class="error" style="display:none;color:red;"></p>
+
+            <div id="search-result"></div>
+
+        </form>
+
+    </div>
+
+</div>

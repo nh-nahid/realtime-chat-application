@@ -241,3 +241,166 @@ nav{
     font-size:20px;
 }
 
+/* SIDEBAR */
+
+.sidebar {
+    position: relative;
+}
+
+/* NEW CHAT BUTTON */
+
+.new-chat-btn {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 34px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(16,185,129,.35);
+
+    transition: .3s;
+}
+
+.new-chat-btn:hover {
+    transform: scale(1.08);
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.75);
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+
+    width: 100%;
+    max-width: 500px;
+
+    background: #0b241d;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    color: #34d399;
+}
+
+.close-modal {
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #16372f;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #cbd5e1;
+}
+
+.form-group input {
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 12px;
+
+    background: #16372f;
+
+    color: white;
+
+    outline: none;
+}
+
+.submit-btn {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #34d399,
+            #059669
+        );
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
